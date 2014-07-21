@@ -28,6 +28,7 @@ class MessageController < FayeRails::Controller
   def push_message_to_recipients message, guid
     thread = message.thread
     thread.users.each do |user|
+       Emlogger.instance.log "pushing to #{user.email}"
       response = {message_thread: thread.to_json, guid: guid}
       MessageController.publish("/users/messages/#{user.id}", response)
     end 
