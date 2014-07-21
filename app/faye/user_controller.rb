@@ -1,14 +1,15 @@
 class UserController < FayeRails::Controller
 
-	channel '/users/messages/*' do
+	channel '/users' do
     monitor :subscribe do
+      Emlogger.instance.log "A Client #{client_id} subscribed to #{channel}."
       puts "Client #{client_id} subscribed to #{channel}."
     end
     monitor :unsubscribe do
-      puts "Client #{client_id} unsubscribed from #{channel}."
+      Emlogger.instance.log "Client #{client_id} unsubscribed from #{channel}."
     end
     monitor :publish do
-      puts "Client #{client_id} published #{data.inspect} to #{channel}."
+      Emlogger.instance.log "Client #{client_id} published #{data.inspect} to #{channel}."
     end
   end
 end

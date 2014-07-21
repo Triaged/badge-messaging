@@ -2,13 +2,14 @@ class MessageController < FayeRails::Controller
 
 	channel '/threads/messages/*' do
     monitor :subscribe do
+      Emlogger.instance.log "Client #{client_id} subscribed to #{channel}."
       puts "Client #{client_id} subscribed to #{channel}."
     end
     monitor :unsubscribe do
-      puts "Client #{client_id} unsubscribed from #{channel}."
+      Emlogger.instance.log "Client #{client_id} unsubscribed from #{channel}."
     end
     monitor :publish do
-      puts "Client #{client_id} published #{data.inspect} to #{channel}."
+      Emlogger.instance.log "Client #{client_id} published #{data.inspect} to #{channel}."
       #thread = MessageThread.first
       
       published_message = Hashie.new(data["message"])
@@ -22,7 +23,7 @@ class MessageController < FayeRails::Controller
 
       response = {message: message.attributes, guid: guid}
     
-       puts "about to publish"  
+       Emlogger.instance.log "about to publish"  
        MessageController.publish("/users", response)
     end
   end
