@@ -16,7 +16,7 @@ class MessageController < FayeRails::Controller
       Emlogger.instance.log "Message: #{published_message}"
       
 
-      thread = message_thread(channel)
+      thread = MessageController.message_thread(channel)
       Emlogger.instance.log "Thread: #{thread.inspect}"
       message = thread.messages.create(
         author_id: published_message.author_id,
@@ -24,11 +24,11 @@ class MessageController < FayeRails::Controller
         timestamp: published_message.timestamp
       )
       Emlogger.instance.log "Message: #{message.inspect}"
-      push_message_to_recipients message, guid
+      MessageController.push_message_to_recipients message, guid
     end
   end
 
-  def push_message_to_recipients message, guid
+  def self.push_message_to_recipients message, guid
     thread = message.thread
     thread.users.each do |user|
       Emlogger.instance.log "pushing to #{user.email}"
@@ -37,7 +37,7 @@ class MessageController < FayeRails::Controller
     end 
   end
 
-  def message_thread(channel)
+  def self.message_thread(channel)
     Emlogger.instance.log "Looking for message thread"
     thread_id = /.*\/(.*)/.match(channel)[1]
     Emlogger.instance.log "Thread ID: #{thread_id}"
