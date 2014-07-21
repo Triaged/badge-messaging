@@ -9,6 +9,8 @@ class MessageController < FayeRails::Controller
     end
     monitor :publish do
       puts "Client #{client_id} published #{data.inspect} to #{channel}."
+
+
     end
   end
 
