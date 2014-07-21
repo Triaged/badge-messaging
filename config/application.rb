@@ -31,7 +31,7 @@ module BadgeMessaging
         #add_extension(UsersExtension.new)
         map '/threads/**' => MessageController  
         map '/users/**' => UserController  
-        map '/**' => DebugController
+        debug_messages
     end
   end
 end
