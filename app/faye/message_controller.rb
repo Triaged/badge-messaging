@@ -9,6 +9,12 @@ class MessageController < FayeRails::Controller
     end
     monitor :publish do
       puts "Client #{client_id} published #{data.inspect} to #{channel}."
+      thread = MessageThread.first
+      thread.messages.create(
+        author_id: data["author_id"],
+        body: data["body"],
+        timestamp: data["timestamp"]
+      )
     end
   end
 

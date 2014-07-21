@@ -11,5 +11,4 @@ class UserController < FayeRails::Controller
       puts "Client #{client_id} published #{data.inspect} to #{channel}."
     end
   end
-
 end
