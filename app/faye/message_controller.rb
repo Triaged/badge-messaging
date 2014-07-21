@@ -21,7 +21,12 @@ class MessageController < FayeRails::Controller
         timestamp: published_message.timestamp
       )
 
+      Emlogger.instance.log message.inspect
+      Emlogger.instance.log message.attributes
+
       response = {message: message.attributes, guid: guid}
+
+      Emlogger.instance.log response
     
        Emlogger.instance.log "about to publish"  
        MessageController.publish("/users", response)
