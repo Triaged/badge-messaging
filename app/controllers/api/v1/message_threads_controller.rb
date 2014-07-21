@@ -16,6 +16,6 @@ class Api::V1::MessageThreadsController < ApplicationController
 private
 	
 	def message_thread_params
-		params[:message_thread].permit(:user_ids)
+		params[:message_thread].permit(:user_ids => [])
 	end
 end
