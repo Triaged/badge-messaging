@@ -15,12 +15,13 @@ class MessageController < FayeRails::Controller
       published_message = Hashie::Mash.new(data["message"])
       
       thread = message_thread(channel)
+      Emlogger.instance.log "Thread: #{thread.inspect}"
       message = thread.messages.create(
         author_id: published_message.author_id,
         body: published_message.body,
         timestamp: published_message.timestamp
       )
-      
+      Emlogger.instance.log "Message: #{message.inspect}"
       push_message_to_recipients message, guid
     end
   end
@@ -28,7 +29,7 @@ class MessageController < FayeRails::Controller
   def push_message_to_recipients message, guid
     thread = message.thread
     thread.users.each do |user|
-       Emlogger.instance.log "pushing to #{user.email}"
+      Emlogger.instance.log "pushing to #{user.email}"
       response = {message_thread: thread.to_json, guid: guid}
       MessageController.publish("/users/messages/#{user.id}", response)
     end 
@@ -36,6 +37,7 @@ class MessageController < FayeRails::Controller
 
   def message_thread(channel)
     thread_id = /.*\/(.*)/.match(channel)[1]
+    Emlogger.instance.log "Thread ID: #{thread_id}"
     return MessageThread.find(thread_id)
   end
 
