@@ -7,6 +7,8 @@ class Api::V1::MessageThreadsController < ApplicationController
 	end
 
 	def create
+		Rails.logger.info params[:message_thread]
+		Rails.logger.info message_thread_params
 		@message_thread = MessageThread.create(message_thread_params)
 		respond_with @message_thread.to_json, location: api_v1_message_thread_path(@message_thread)
 	end
