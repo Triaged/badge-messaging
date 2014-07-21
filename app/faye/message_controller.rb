@@ -14,7 +14,7 @@ class MessageController < FayeRails::Controller
       guid = data["guid"]
       published_message = Hashie::Mash.new(data["message"])
       
-      thread = MessageThread.first
+      thread = message_thread(channel)
       message = thread.messages.create(
         author_id: published_message.author_id,
         body: published_message.body,
@@ -26,4 +26,11 @@ class MessageController < FayeRails::Controller
       MessageController.publish("/users", response)
     end
   end
+
+  def message_thread(channel)
+    thread_id = /.*\/(.*)/.match(channel)[1]
+    return MessageThread.find(thread_id)
+  end
+
 end
+
