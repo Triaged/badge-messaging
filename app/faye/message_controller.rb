@@ -20,11 +20,17 @@ class MessageController < FayeRails::Controller
         body: published_message.body,
         timestamp: published_message.timestamp
       )
-
-      response = {message_thread: thread.to_json, guid: guid}
-      Emlogger.instance.log response
-      MessageController.publish("/users", response)
+      
+      push_message_to_recipients message, guid
     end
+  end
+
+  def push_message_to_recipients message, guid
+    thread = message.thread
+    thread.users.each do |user|
+      response = {message_thread: thread.to_json, guid: guid}
+      MessageController.publish("/users/messages/#{user.id}", response)
+    end 
   end
 
   def message_thread(channel)
