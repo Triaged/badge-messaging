@@ -30,7 +30,7 @@ class MessageController < FayeRails::Controller
 
   def self.push_message_to_recipients message, guid
     Emlogger.instance.log "pushing"
-    thread = message.thread
+    thread = message.message_thread
     thread.user_ids.each do |user_id|
       Emlogger.instance.log "pushing to #{user_id}"
       response = {message_thread: thread.to_json, guid: guid}
