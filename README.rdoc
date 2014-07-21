@@ -1,0 +1,11 @@
+Requirements:
+
+Group Messaging
+Keep track of read receipts
+Authenticated
+Push Notifications when not logged in
+History on login
+
+Your company directory, redesigned for you
+Your company directory, redesigned for modern teams
+
