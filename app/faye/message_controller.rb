@@ -13,7 +13,9 @@ class MessageController < FayeRails::Controller
       
       guid = data["guid"]
       published_message = Hashie::Mash.new(data["message"])
+      Emlogger.instance.log "Message: #{published_message}"
       
+
       thread = message_thread(channel)
       Emlogger.instance.log "Thread: #{thread.inspect}"
       message = thread.messages.create(
@@ -36,6 +38,7 @@ class MessageController < FayeRails::Controller
   end
 
   def message_thread(channel)
+    Emlogger.instance.log "Looking for message thread"
     thread_id = /.*\/(.*)/.match(channel)[1]
     Emlogger.instance.log "Thread ID: #{thread_id}"
     return MessageThread.find(thread_id)
