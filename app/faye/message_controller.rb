@@ -14,7 +14,7 @@ class MessageController < FayeRails::Controller
       Emlogger.instance.log data["guid"]
       
       guid = data["guid"]
-      published_message = Hashie.new(data["message"])
+      published_message = Hashie::Mash.new(data["message"])
       
       Emlogger.instance.log guid
 
