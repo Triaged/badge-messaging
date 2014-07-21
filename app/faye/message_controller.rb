@@ -26,7 +26,7 @@ class MessageController < FayeRails::Controller
       )
 
       Emlogger.instance.log message.inspect
-      Emlogger.instance.log message.attributes
+      Emlogger.instance.log message.as_json
 
       response = {message: message.attributes, guid: guid}
 
