@@ -11,9 +11,11 @@ class MessageController < FayeRails::Controller
     monitor :publish do
       Emlogger.instance.log "Client #{client_id} published #{data.inspect} to #{channel}."
       #thread = MessageThread.first
+      Emlogger.instance.log data["guid"]
       
-      published_message = Hashie.new(data["message"])
       guid = data["guid"]
+      published_message = Hashie.new(data["message"])
+      
       Emlogger.instance.log guid
 
       message = thread.messages.create(
