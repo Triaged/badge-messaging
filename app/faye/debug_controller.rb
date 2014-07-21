@@ -1,6 +1,6 @@
-class UserController < FayeRails::Controller
+class DebugController < FayeRails::Controller
 
-	channel '/users/**' do
+	channel '/**' do
     monitor :subscribe do
       puts "Client #{client_id} subscribed to #{channel}."
     end
@@ -9,6 +9,8 @@ class UserController < FayeRails::Controller
     end
     monitor :publish do
       puts "Client #{client_id} published #{data.inspect} to #{channel}."
+
+
     end
   end
 
