@@ -14,6 +14,7 @@ class MessageController < FayeRails::Controller
       
       published_message = Hashie.new(data["message"])
       guid = data["guid"]
+      Emlogger.instance.log guid
 
       message = thread.messages.create(
         author_id: published_message.author_id,
