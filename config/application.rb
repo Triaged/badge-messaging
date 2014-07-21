@@ -29,6 +29,7 @@ module BadgeMessaging
     config.middleware.delete Rack::Lock
     config.middleware.use FayeRails::Middleware, mount: '/streaming', :timeout => 25 do
         add_extension(UsersExtension.new)
+        map '/thread/**' => MessageController  
     end
   end
 end

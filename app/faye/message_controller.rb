@@ -1,5 +1,6 @@
 class MessageController < FayeRails::Controller
-	channel '/messages' do
+
+	channel '/thread/*/messages' do
     monitor :subscribe do
       puts "Client #{client_id} subscribed to #{channel}."
     end
