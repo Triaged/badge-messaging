@@ -10,11 +10,16 @@ class MessageController < FayeRails::Controller
     monitor :publish do
       puts "Client #{client_id} published #{data.inspect} to #{channel}."
       thread = MessageThread.first
-      thread.messages.create(
-        author_id: data["author_id"],
-        body: data["body"],
-        timestamp: data["timestamp"]
+      
+      published_message = Hashie.new(data["message"])
+
+      message = thread.messages.create(
+        author_id: published_message.author_id,
+        body: published_message.body,
+        timestamp: published_message.timestamp
       )
+
+       MessageController.publish("/users/messages/#{message.author_id}", message.as_json)
     end
   end
 
