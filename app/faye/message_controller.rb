@@ -11,19 +11,19 @@ class MessageController < FayeRails::Controller
       puts "Client #{client_id} published #{data.inspect} to #{channel}."
       #thread = MessageThread.first
       
-      # published_message = Hashie.new(data["message"])
+      published_message = Hashie.new(data["message"])
+      guid = data["guid"]
 
-      # # message = thread.messages.create(
-      # #   author_id: published_message.author_id,
-      # #   body: published_message.body,
-      # #   timestamp: published_message.timestamp
-      # # )
-    msg = {
-          message: {id: "123", author_id: "1", body: "hello Jeffrey" }, 
-          guid: "123"
-    }
+      message = thread.messages.create(
+        author_id: published_message.author_id,
+        body: published_message.body,
+        timestamp: published_message.timestamp
+      )
+
+      response = {message: message.attributes, guid: guid}
+    
        puts "about to publish"  
-       MessageController.publish("/users", msg)
+       MessageController.publish("/users", response)
     end
   end
 
