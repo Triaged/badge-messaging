@@ -1,4 +1,5 @@
 class Api::V1::MessageThreadsController < ApplicationController
+	respond_to :json
 
 	def show
 		@message_thread = MessageThread.find(params[:id])
