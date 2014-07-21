@@ -2,13 +2,13 @@ class DebugController < FayeRails::Controller
 
 	channel '/**' do
     monitor :subscribe do
-      puts "Client #{client_id} subscribed to #{channel}."
+      Rails.logger.info "Client #{client_id} subscribed to #{channel}."
     end
     monitor :unsubscribe do
-      puts "Client #{client_id} unsubscribed from #{channel}."
+      Rails.logger.info "Client #{client_id} unsubscribed from #{channel}."
     end
     monitor :publish do
-      puts "Client #{client_id} published #{data.inspect} to #{channel}."
+      Rails.logger.info "Client #{client_id} published #{data.inspect} to #{channel}."
 
 
     end
