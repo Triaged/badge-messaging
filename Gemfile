@@ -32,6 +32,7 @@ gem 'faye-rails'
 gem 'thin'
 gem 'hashie'
 gem 'em-logger'
+gem 'lograge'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

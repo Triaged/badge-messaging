@@ -43,6 +43,14 @@ Rails.application.configure do
 
   # Set to :debug to see everything in the log.
   config.log_level = :info
+  config.lograge.enabled = true
+  config.lograge.custom_options = lambda do |event|
+    unwanted_keys = %w[format action controller]
+    params = event.payload[:params].reject { |key,_| unwanted_keys.include? key }
+ 
+    # capture some specific timing values you are interested in
+    {:params => params }
+  end
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
