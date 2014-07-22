@@ -1,5 +1,6 @@
 class MessageThread
   include Mongoid::Document
+  include Mongoid::Timestamps::Short
 
   has_and_belongs_to_many :users
 	embeds_many :messages
@@ -17,6 +18,4 @@ class MessageThread
 			messages: [message]
 		}
 	end
-
-	
 end

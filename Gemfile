@@ -33,7 +33,9 @@ gem 'thin'
 gem 'hashie'
 gem 'em-logger'
 gem 'lograge'
-gem "bugsnag"
+gem 'bugsnag'
+gem 'httparty'
+gem 'figaro'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

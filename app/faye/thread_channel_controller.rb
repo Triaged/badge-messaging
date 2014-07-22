@@ -18,7 +18,6 @@ class ThreadChannelController < FayeRails::Controller
       response = Hashie::Mash.new(data)
       
       MessageController.new(thread, response).persist_and_deliver_message!
-      Emlogger.instance.log "Message Delivered"
     end
   end
 

@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :message_threads
+      resource :user do
+        get 'history', as: :member
+      end
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

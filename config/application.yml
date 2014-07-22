@@ -1,0 +1,17 @@
+# Add account credentials and API keys here.
+# See http://railsapps.github.io/rails-environment-variables.html
+# This file should be listed in .gitignore to keep your settings secret!
+# Each entry sets a local environment variable.
+# For example, setting:
+# GMAIL_USERNAME: Your_Gmail_Username
+# makes 'Your_Gmail_Username' available as ENV["GMAIL_USERNAME"]
+
+# Add application configuration variables here, as shown below.
+#
+
+BADGE_BASE_URL: http://api.badge-staging.com/internal
+INTERNAL_API_TOKEN: 20566ad05aaa5828ad6c3a6c73329db5108e4baba29814c59dbe5569e7c12be8
+
+production:
+  BADGE_BASE_URL: https://api.badge.co/internal
+  INTERNAL_API_TOKEN: f9c93bc9ca8a0fe561c2ca3eb132cdbed7a70bd4095ed9212063edd3a4825255

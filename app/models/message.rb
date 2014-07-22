@@ -1,5 +1,6 @@
 class Message
   include Mongoid::Document
+  include Mongoid::Timestamps::Short
 
   embedded_in :message_thread
 
