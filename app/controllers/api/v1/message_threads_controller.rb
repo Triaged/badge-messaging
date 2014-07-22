@@ -7,7 +7,13 @@ class Api::V1::MessageThreadsController < ApiController
 	end
 
 	def create
-		@message_thread = MessageThread.find_or_create_by(user_ids: message_thread_params[:user_ids])
+		recipients = message_thread_params[:user_ids]
+		
+		unless current_user.id in recipients
+			render :json => { :errors => ['Invalid MessageThread, current user must be part of thread'] }, :status => 401 && return
+		end
+		
+		@message_thread = MessageThread.find_or_create_by(user_ids: )
 		respond_with @message_thread.to_json, location: api_v1_message_thread_path(@message_thread)
 	end
 
