@@ -7,9 +7,7 @@ class Api::V1::MessageThreadsController < ApplicationController
 	end
 
 	def create
-		puts params[:message_thread]
-		puts message_thread_params
-		@message_thread = MessageThread.create(message_thread_params)
+		@message_thread = MessageThread.find_or_create_by(user_ids: message_thread_params[:user_ids])
 		respond_with @message_thread.to_json, location: api_v1_message_thread_path(@message_thread)
 	end
 
