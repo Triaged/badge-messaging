@@ -30,7 +30,7 @@ module BadgeMessaging
     config.middleware.delete Rack::Lock
 
     
-    config.middleware.use FayeRails::Middleware, mount: '/streaming', :timeout => 25, engine: {type: Faye::Redis, :url => ENV["REDISCLOUD_URL"]} do
+    config.middleware.use FayeRails::Middleware, mount: '/streaming', :timeout => 25 do
         add_extension(AuthExtension.new)
         map '/threads/**' => ThreadChannelController  
         map '/users/**' => UserChannelController  
@@ -40,4 +40,4 @@ module BadgeMessaging
   end
 end
 
-
+#, engine: {type: Faye::Redis, :uri => ENV["REDISCLOUD_URL"]}
