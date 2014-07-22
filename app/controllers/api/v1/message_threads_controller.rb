@@ -9,7 +9,7 @@ class Api::V1::MessageThreadsController < ApiController
 	def create
 		recipients = message_thread_params[:user_ids]
 		
-		unless current_user.id in recipients
+		unless recipients.include? current_user.id 
 			render :json => { :errors => ['Invalid MessageThread, current user must be part of thread'] }, :status => 401 && return
 		end
 		
