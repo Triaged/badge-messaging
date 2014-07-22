@@ -1,6 +1,6 @@
 class UserController < FayeRails::Controller
 
-	channel '/users/messages' do
+	channel '/users/messages/*' do
     monitor :subscribe do
       Emlogger.instance.log "User #{client_id} subscribed to #{channel}."
       user = UserController.user(channel)
