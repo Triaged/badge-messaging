@@ -6,7 +6,7 @@ class AuthExtension
     # Subscription Auth
     if message['channel'] !~ %r{^/meta/}
       Emlogger.instance.log "subscribing auth"
-      Emlogger.instance.log message['ext']['auth_token']
+      Emlogger.instance.log message['ext']
       Emlogger.instance.log message['ext']['user_id']
       user_id = message['ext']['user_id']
       auth_token = message['ext']['auth_token']
