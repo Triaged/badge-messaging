@@ -1,36 +1,27 @@
 class AuthExtension
   def incoming(message, callback)
-    
-    Emlogger.instance.log "Auth"
-
     # Subscription Auth
     if message['channel'] =~ %r{^/meta/subscribe}
-      Emlogger.instance.log "subscribing auth"
-      Emlogger.instance.log message['ext']
-      Emlogger.instance.log message['ext']['user_id']
       user_id = message['ext']['user_id']
       auth_token = message['ext']['auth_token']
       if User.find(user_id).valid_auth_token? auth_token
-        Emlogger.instance.log "Subscription failed"
         message['error'] = '403::Authentication required'
       end
     end
-    Emlogger.instance.log "subscribed auth"
+    
     # Publish Message Auth
     if message['channel'] =~ %r{^/threads/messages/}
-      Emlogger.instance.log message
       user_id = message['ext']['user_id']
       auth_token = message['ext']['auth_token']
-      Emlogger.instance.log "publish auth"
+      
       thread = message_thread(message['channel'])
       user = User.find(user_id)
-      Emlogger.instance.log "publish auth1"
-      if user.valid_auth_token?(auth_token) && thread.user_can_publish(user)
-        Emlogger.instance.log "Subscription failed"
+      
+      unless user.valid_auth_token?(auth_token) && thread.user_can_publish(user)
         message['error'] = '403::Authentication required'
       end
     end
-    Emlogger.instance.log "published auth"
+    
     callback.call(message)
   rescue
     Emlogger.instance.log "Rescueing, failed"
