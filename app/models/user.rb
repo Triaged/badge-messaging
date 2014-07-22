@@ -13,7 +13,7 @@ class User
   		return true
   	else
   		valid = check_auth_token_with_remote auth_token
-  		self.update_attribute(:authentication_token, auth_token) if valid
+  		valid ? self.update_attribute(:authentication_token, auth_token) : self.update_attribute(:authentication_token, nil) 
   		return valid
   	end
 	end
