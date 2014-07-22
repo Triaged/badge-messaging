@@ -1,4 +1,4 @@
-class MessageController
+class NewMessageController
 
 	def initialize thread, data
 		@thread = thread

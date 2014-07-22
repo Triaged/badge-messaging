@@ -7,5 +7,6 @@ class Message
   field :author_id, type: String
   field :body, type: String
   field :timestamp, type: DateTime
+  field :read_by, type: Array
   
 end

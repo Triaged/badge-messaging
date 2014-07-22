@@ -2,8 +2,9 @@ class MessageThread
   include Mongoid::Document
   include Mongoid::Timestamps::Short
 
-  has_and_belongs_to_many :users
-	embeds_many :messages
+  has_and_belongs_to_many :users, autosave: true
+	embeds_many :messages, cascade_callbacks: true
+	accepts_nested_attributes_for :messages
 
 	def user_can_publish user 
 		self.user_ids.include? user.id

@@ -6,7 +6,7 @@ class User
   field :subscriptions, type: Integer
   field :authentication_token, type: String
 
-  has_and_belongs_to_many :message_threads
+  has_and_belongs_to_many :message_threads, autosave: true
 
   def valid_auth_token? auth_token
 		if self.authentication_token && (self.authentication_token == auth_token)
