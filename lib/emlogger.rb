@@ -13,6 +13,18 @@ class Emlogger
   def log(message)
     @queue << message
   end
+
+  def info(message)
+    @queue << message
+  end
+
+  def warn(message)
+    @queue << message
+  end
+
+  def error(message)
+    @queue << message
+  end
   
   def close
     @queue << SHUTDOWN_MESSAGE
