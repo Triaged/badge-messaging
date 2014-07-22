@@ -17,7 +17,8 @@ class AuthExtension
     end
     Emlogger.instance.log "subscribed auth"
     # Publish Message Auth
-    if message['channel'] !~ %r{^/threads/messages}
+    if message['channel'] !~ %r{^/threads/messages/}
+      Emlogger.instance.log message['ext']
       user_id = message['ext']['user_id']
       auth_token = message['ext']['auth_token']
       Emlogger.instance.log "publish auth"
