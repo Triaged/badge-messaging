@@ -5,6 +5,10 @@ class MessageThread
   has_and_belongs_to_many :users
 	embeds_many :messages
 
+	def user_can_publish user 
+		user in self.users
+	end
+
 	def with_last_message
 		{
 			user_ids: self.user_ids,
