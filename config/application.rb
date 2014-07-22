@@ -31,7 +31,7 @@ module BadgeMessaging
 
 
     config.middleware.use FayeRails::Middleware, mount: '/streaming', :timeout => 25 do
-        #add_extension(UsersExtension.new)
+        add_extension(AuthExtension.new)
         map '/threads/**' => ThreadChannelController  
         map '/users/**' => UserChannelController  
         debug_messages
