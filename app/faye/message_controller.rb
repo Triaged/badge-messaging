@@ -34,7 +34,7 @@ class MessageController < FayeRails::Controller
 
     thread.user_ids.each do |id|
       Emlogger.instance.log "pushing to #{id}"
-      response = {message_thread: thread.to_json, guid: guid}
+      response = {message_thread: thread.with_last_message, guid: guid}
       MessageController.publish("/users/messages/#{id}", response)
     end 
   end

@@ -4,7 +4,7 @@ class MessageThread
   has_and_belongs_to_many :users
 	embeds_many :messages
 
-	def with_last_message_as_json
+	def with_last_message
 		{
 			user_ids: self.user_ids,
 			messages: [self.messages.last]
