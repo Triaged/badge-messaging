@@ -16,6 +16,6 @@ class UserController < FayeRails::Controller
 
   def self.user(channel)
     user_id = /.*\/(.*)/.match(channel)[1]
-    return User.find_or_create(user_id)
+    return User.find_or_create_by(user_id: user_id)
   end
 end
