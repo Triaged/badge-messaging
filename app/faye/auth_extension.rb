@@ -4,7 +4,7 @@ class AuthExtension
     if message['channel'] =~ %r{^/meta/subscribe}
       user_id = message['ext']['user_id']
       auth_token = message['ext']['auth_token']
-      if User.find(user_id).valid_auth_token? auth_token
+      unless User.find(user_id).valid_auth_token? auth_token
         message['error'] = '403::Authentication required'
       end
     end
@@ -21,7 +21,7 @@ class AuthExtension
         message['error'] = '403::Authentication required'
       end
     end
-    
+
     callback.call(message)
   rescue
     Emlogger.instance.log "Rescueing, failed"
