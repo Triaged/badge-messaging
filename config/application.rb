@@ -29,13 +29,14 @@ module BadgeMessaging
     # config.i18n.default_locale = :de
     config.middleware.delete Rack::Lock
 
-
+    
     config.middleware.use FayeRails::Middleware, mount: '/streaming', :timeout => 25 do
         add_extension(AuthExtension.new)
         map '/threads/**' => ThreadChannelController  
         map '/users/**' => UserChannelController  
         debug_messages
     end
+
   end
 end
 

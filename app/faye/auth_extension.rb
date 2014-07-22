@@ -1,5 +1,6 @@
 class AuthExtension
   def incoming(message, callback)
+    Emlogger.instance.log "Auth Extension"
     if message['channel'] !~ %r{^/meta/}
       
       user_id = message['ext']['user_id']
