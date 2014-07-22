@@ -1,50 +1,50 @@
-class MessageController < FayeRails::Controller
+class MessageController
 
-	channel '/threads/messages/*' do
-    monitor :subscribe do
-      Emlogger.instance.log "Client #{client_id} subscribed to #{channel}."
-      puts "Client #{client_id} subscribed to #{channel}."
-    end
-    monitor :unsubscribe do
-      Emlogger.instance.log "Client #{client_id} unsubscribed from #{channel}."
-    end
-    monitor :publish do
-      Emlogger.instance.log "Client #{client_id} published #{data.inspect} to #{channel}."
-      
-      guid = data["guid"]
-      published_message = Hashie::Mash.new(data["message"])
-      Emlogger.instance.log "Message: #{published_message}"
-      
+	def initialize thread, data
+		@thread = thread
+		@published_message = data.message
+		@guid = data.guid
+	end
 
-      thread = MessageController.message_thread(channel)
-      Emlogger.instance.log "Thread: #{thread.inspect}"
-      message = thread.messages.create(
-        author_id: published_message.author_id,
-        body: published_message.body,
-        timestamp: published_message.timestamp
-      )
-      Emlogger.instance.log "Message: #{message.inspect}"
-      MessageController.push_message_to_recipients message, guid
-    end
+	def persist_and_deliver_message!
+		message = persist_message
+		deliver_message_to_recipients message
+		return message
+	end
+
+	def persist_message
+		message = @thread.messages.create(
+      author_id: @published_message.author_id,
+      body: @published_message.body,
+      timestamp: @published_message.timestamp
+    )
+	end
+
+	def deliver_message_to_recipients message
+		@thread.users.each { |user| deliver_message_to_recipient user, message } 
   end
 
-  def self.push_message_to_recipients message, guid
-    Emlogger.instance.log "pushing"
-    thread = message.message_thread
+	def deliver_message_to_recipient user, message
+		if user.subscriptions > 0
+			deliver_faye_message_to_recipient user, message
+		else
+			deliver_external_message_to_recipient user, message
+		end
+	end
 
-    thread.user_ids.each do |id|
-      Emlogger.instance.log "pushing to #{id}"
-      response = {message_thread: thread.with_last_message, guid: guid}
-      MessageController.publish("/users/messages/#{id}", response)
-    end 
-  end
+	def deliver_faye_message_to_recipient user, message
+		Emlogger.instance.log "Sending Faye Message: #{faye_message_format(message)} to user: #{user.id}"
+		ThreadChannelController.publish("/users/messages/#{user.id}", faye_message_format(message))
+	end
 
-  def self.message_thread(channel)
-    Emlogger.instance.log "Looking for message thread"
-    thread_id = /.*\/(.*)/.match(channel)[1]
-    Emlogger.instance.log "Thread ID: #{thread_id}"
-    return MessageThread.find(thread_id)
-  end
+	def deliver_external_message_to_recipient user, message
+		Emlogger.instance.log "Sending External Message to user: #{user.id}"
+	end
+
+	def faye_message_format message
+		{message_thread: @thread.with_message(message), guid: @guid}
+	end
+
+
 
 end
-

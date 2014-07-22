@@ -11,5 +11,12 @@ class MessageThread
 		}
 	end
 
+	def with_message message
+		{
+			user_ids: self.user_ids,
+			messages: [message]
+		}
+	end
+
 	
 end
