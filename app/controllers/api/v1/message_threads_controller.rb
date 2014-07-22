@@ -1,4 +1,4 @@
-class Api::V1::MessageThreadsController < ApplicationController
+class Api::V1::MessageThreadsController < ApiController
 	respond_to :json
 
 	def show
