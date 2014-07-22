@@ -1,9 +1,9 @@
 class UserController < FayeRails::Controller
 
-	channel '/users/messages/*' do
+	channel '/users/messages' do
     monitor :subscribe do
-      Emlogger.instance.log "A Client #{client_id} subscribed to #{channel}."
-      user = user(channel)
+      Emlogger.instance.log "User #{client_id} subscribed to #{channel}."
+      user = UserController.user(channel)
       Emlogger.instance.log "#{user}"
     end
     monitor :unsubscribe do
@@ -14,7 +14,7 @@ class UserController < FayeRails::Controller
     end
   end
 
-  def user(channel)
+  def self.user(channel)
     user_id = /.*\/(.*)/.match(channel)[1]
     return User.find_or_create(user_id)
   end
