@@ -11,20 +11,15 @@ class AuthExtension
     
     # Publish Message Auth
     if message['channel'] =~ %r{^/threads/messages/}
-      Emlogger.instance.log message
       user_id = message['ext']['user_id']
       auth_token = message['ext']['auth_token']
       
-      Emlogger.instance.log "1"
       thread = message_thread(message['channel'])
-      Emlogger.instance.log "2"
       user = User.find(user_id)
-      Emlogger.instance.log "3"
       
       unless user.valid_auth_token?(auth_token) && thread.user_can_publish(user)
         message['error'] = '403::Authentication required'
       end
-      Emlogger.instance.log "4"
     end
 
     callback.call(message)
@@ -43,9 +38,7 @@ class AuthExtension
   end
 
   def message_thread(channel)
-    Emlogger.instance.log "a"
     thread_id = /.*\/(.*)/.match(channel)[1]
-    Emlogger.instance.log thread_id
     return MessageThread.find(thread_id)
   end
 end
