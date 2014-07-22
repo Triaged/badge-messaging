@@ -4,13 +4,13 @@ class UserController < FayeRails::Controller
     monitor :subscribe do
       Emlogger.instance.log "User #{client_id} subscribed to #{channel}."
       user = UserController.user(channel)
-      user.inc(:subscriptions, 1)
+      user.inc(:subscriptions: 1)
       Emlogger.instance.log "#{user.id} subscriptions: #{user.subscriptions}"
     end
     monitor :unsubscribe do
       Emlogger.instance.log "User #{client_id} unsubscribed from #{channel}."
       user = UserController.user(channel)
-      user.inc(:subscriptions, -1)
+      user.inc(:subscriptions: -1)
       Emlogger.instance.log "#{user.id} subscriptions: #{user.subscriptions}"
     end
     monitor :publish do
