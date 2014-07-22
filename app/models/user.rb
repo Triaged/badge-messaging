@@ -23,11 +23,11 @@ class User
   end
 
   def incr_sub
-    user.inc(subscriptions: 1)
+    self.inc(subscriptions: 1)
   end
 
   def decr_sub
-    user.inc(subscriptions: -1) if (user.subscriptions > 0)
+    self.inc(subscriptions: -1) if (self.subscriptions > 0)
   end
 
 end
