@@ -22,7 +22,7 @@ class ApiController < ApplicationController
   end
 
   def current_user
-    user_id = request.headers["User-Id"].presence
+    user_id = request.headers["HTTP_USER_ID"].presence
     User.find(user_id)
   end
 
