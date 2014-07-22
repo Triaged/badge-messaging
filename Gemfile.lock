@@ -44,6 +44,9 @@ GEM
     connection_pool (2.0.0)
     cookiejar (0.3.2)
     daemons (1.1.9)
+    em-hiredis (0.3.0)
+      eventmachine (~> 1.0)
+      hiredis (~> 0.5.0)
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
       cookiejar
@@ -68,6 +71,10 @@ GEM
     faye-rails (2.0.0)
       eventmachine (~> 1.0.0)
       faye (~> 1.0.1)
+    faye-redis (0.2.0)
+      em-hiredis (>= 0.2.0)
+      eventmachine (>= 0.12.0)
+      multi_json (>= 1.0.0)
     faye-websocket (0.7.4)
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.3.1)
@@ -76,6 +83,7 @@ GEM
       rails (>= 3, < 5)
     hashie (3.2.0)
     hike (1.2.3)
+    hiredis (0.5.2)
     http_parser.rb (0.6.0)
     httparty (0.13.1)
       json (~> 1.8)
@@ -178,6 +186,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   em-logger
   faye-rails
+  faye-redis
   figaro
   hashie
   httparty

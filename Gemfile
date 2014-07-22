@@ -28,6 +28,7 @@ gem 'spring',        group: :development
 gem "mongoid", "~> 4.0.0"
 
 gem 'faye-rails'
+gem 'faye-redis'
 
 gem 'thin'
 gem 'hashie'
