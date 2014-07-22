@@ -21,4 +21,13 @@ class User
   def check_auth_token_with_remote auth_token
   	BadgeClient.new.valid_auth_token_for_user(self.id, auth_token)
   end
+
+  def incr_sub
+    user.inc(subscriptions: 1)
+  end
+
+  def decr_sub
+    user.inc(subscriptions: -1) if (user.subscriptions > 0)
+  end
+
 end

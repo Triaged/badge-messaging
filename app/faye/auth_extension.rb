@@ -1,13 +1,13 @@
 class AuthExtension
   def incoming(message, callback)
-    Emlogger.instance.log "Auth Extension"
-    if message['channel'] !~ %r{^/meta/}
+    if message['channel'] !~ %r{^/meta/subscribe}
+      Emlogger.instance.log "Auth Extension"
       
       user_id = message['ext']['user_id']
       auth_token = message['ext']['auth_token']
 
       if User.find(user_id).valid_auth_token? auth_token
-        message['error'] = 'Invalid authentication token'
+        message['error'] = '403::Authentication required'
       end
     end
     callback.call(message)
