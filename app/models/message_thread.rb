@@ -6,7 +6,7 @@ class MessageThread
 	embeds_many :messages
 
 	def user_can_publish user 
-		user in self.users
+		self.users.in(id: user.id)
 	end
 
 	def with_last_message
