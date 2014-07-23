@@ -20,12 +20,14 @@ class BadgeClient
 	end
 
 	def deliver_message user_id, message
-		response = self.class.post("/users/#{user_id}/deliver_message", @options)
+		params = @options.merge({message: message.to_json})
+		response = self.class.post("/users/#{user_id}/deliver_message", params)
 		raise HTTParty::Error.new unless response.response.is_a?(Net::HTTPSuccess) 
 	end
 
 	def valid_auth_token_for_user user_id, auth_token
-		response = self.class.get("/users/#{user_id}/valid_auth_token", @options.merge(query: {authentication_token: auth_token }) )
+		params = @options.merge(query: {authentication_token: auth_token })
+		response = self.class.get("/users/#{user_id}/valid_auth_token", params)
 		puts response.inspect
 		raise HTTParty::Error.new unless response.response.is_a?(Net::HTTPSuccess) 
 
