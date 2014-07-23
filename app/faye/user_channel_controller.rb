@@ -5,7 +5,7 @@ class UserChannelController < FayeRails::Controller
       Emlogger.instance.log "User #{client_id} subscribed to #{channel}."
       user = UserChannelController.user(channel)
       user.subscribed
-      PendingMessagesController.new(user).publish_pending_threads
+      #PendingMessagesController.new(user).publish_pending_threads
       Emlogger.instance.log "#{user.id} subscriptions: #{user.subscriptions}"
     end
     monitor :unsubscribe do
