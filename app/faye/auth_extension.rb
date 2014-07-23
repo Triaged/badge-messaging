@@ -11,20 +11,20 @@ class AuthExtension
       
     end
     
-    # Publish Message Auth
-    if message['channel'] =~ %r{^/threads/messages/}
-      Emlogger.instance.log message['channel']
-      user_id = message['ext']['user_id']
-      auth_token = message['ext']['auth_token']
-      thread = message_thread(message['channel'])
-      Emlogger.instance.log thread
-      Emlogger.instance.log "about to authenticate"
+    # # Publish Message Auth
+    # if message['channel'] =~ %r{^/threads/messages/}
+    #   Emlogger.instance.log message['channel']
+    #   user_id = message['ext']['user_id']
+    #   auth_token = message['ext']['auth_token']
+    #   thread = message_thread(message['channel'])
+    #   Emlogger.instance.log thread
+    #   Emlogger.instance.log "about to authenticate"
       
-      unless AuthenticationController.new(user_id, auth_token).authenticated_and_can_publish? thread
-        message['error'] = '403::Authentication required'
-      end
-      Emlogger.instance.log "publish done"
-    end
+    #   unless AuthenticationController.new(user_id, auth_token).authenticated_and_can_publish? thread
+    #     message['error'] = '403::Authentication required'
+    #   end
+    #   Emlogger.instance.log "publish done"
+    # end
 
     callback.call(message)
   rescue
