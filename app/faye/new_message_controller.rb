@@ -39,6 +39,7 @@ class NewMessageController
 
 	def deliver_external_message_to_recipient user, message
 		Emlogger.instance.log "Sending External Message to user: #{user.id}"
+		BadgeClient.new.deliver_message user.id, message
 	end
 
 	def faye_message_format message

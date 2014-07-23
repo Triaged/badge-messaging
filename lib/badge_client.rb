@@ -20,7 +20,7 @@ class BadgeClient
 	end
 
 	def deliver_message user_id, message
-		self.class.post("/users/#{user_id}", @options)
+		response = self.class.post("/users/#{user_id}/deliver_message", @options)
 		raise HTTParty::Error.new unless response.response.is_a?(Net::HTTPSuccess) 
 	end
 
