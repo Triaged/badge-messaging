@@ -19,6 +19,8 @@ class User
   	end
 	end
 
+  
+
   def check_auth_token_with_remote auth_token
   	BadgeClient.new.valid_auth_token_for_user(self.id, auth_token)
   end
@@ -34,6 +36,15 @@ class User
 
   def pending_message_threads
     self.messages_threads.where(:c_at.gte => self.last_seen_at)
+  end
+
+  def self.fetch_and_create_remote user_id
+    remote_user = BadgeClient.new.user(user_id)
+    User.create(user_id: remote_user)
+  end
+
+  def self.find_or_fetch user_id
+    User.find(user_id) || fetch_and_create_remote user_id
   end
 
 end

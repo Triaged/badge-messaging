@@ -1,6 +1,6 @@
 class PendingMessagesController
 
-	def intialize user
+	def initialize user
 		@user = user
 	end
 
