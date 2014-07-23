@@ -9,7 +9,7 @@ class AuthenticationController
 		Emlogger.instance.log "authenticated?"
 		user = User.find_or_fetch @user_id
 		Emlogger.instance.log user.inspect
-		return user.valid_auth_token? auth_token
+		return user.valid_auth_token? @auth_token
 	end
 
 	def can_publish? thread
