@@ -15,8 +15,11 @@ class AuthExtension
     if message['channel'] =~ %r{^/threads/messages/}
       Emlogger.instance.log "publish"
       user_id = message['ext']['user_id']
+      Emlogger.instance.log user_id
       auth_token = message['ext']['auth_token']
+      Emlogger.instance.log auth_token
       thread = message_thread(message['channel'])
+      Emlogger.instance.log thread
       Emlogger.instance.log "about to authenticate"
       
       unless AuthenticationController.new(user_id, auth_token).authenticated_and_can_publish? thread
