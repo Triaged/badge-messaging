@@ -12,6 +12,7 @@ class MessageThread
 
 	def with_last_message
 		{
+			_id: self.id.to_s,
 			user_ids: self.user_ids,
 			messages: [self.messages.last]
 		}
@@ -19,6 +20,7 @@ class MessageThread
 
 	def with_message message
 		{
+			_id: self.id.to_s,
 			user_ids: self.user_ids,
 			messages: [message]
 		}
