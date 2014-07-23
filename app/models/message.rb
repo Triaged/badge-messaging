@@ -9,8 +9,8 @@ class Message
   field :timestamp, type: DateTime
   field :read_by, type: Array
 
-  def timestamp=(timestamp)
-  	super(timestamp.to_f)
+  def timestamp=(newtimestamp)
+  	super(newtimestamp.to_f)
 	end
   
 end
