@@ -8,5 +8,14 @@ class Message
   field :body, type: String
   field :timestamp, type: DateTime
   field :read_by, type: Array
+
+  def attributes
+  	{
+  		_id: self.id.to_s,
+  		author_id: self.author_id,
+  		body: self.body
+  		timestamp: self.timestamp.to_f
+  	}
+  end
   
 end
