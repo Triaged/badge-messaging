@@ -13,7 +13,7 @@ class Message
   	{
   		_id: self.id.to_s,
   		author_id: self.author_id,
-  		body: self.body
+  		body: self.body,
   		timestamp: self.timestamp.to_f
   	}
   end
