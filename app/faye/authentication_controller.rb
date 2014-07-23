@@ -16,7 +16,7 @@ class AuthenticationController
 	end
 
 	def authenticated_and_can_publish? thread
-		authenticated? && can_publish? thread
+		authenticated? && can_publish?(thread)
 	end
 
 end
