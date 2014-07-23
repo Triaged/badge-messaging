@@ -45,6 +45,7 @@ class AuthExtension
 
   def message_thread(channel)
     thread_id = /.*\/(.*)/.match(channel)[1]
+    Emlogger.instance.log thread
     return MessageThread.find(thread_id)
   end
 end
