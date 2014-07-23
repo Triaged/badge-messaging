@@ -6,7 +6,7 @@ class AuthExtension
       user_id = message['ext']['user_id']
       auth_token = message['ext']['auth_token']
       Emlogger.instance.log "tokens"
-      unless AuthenticationController.new(user_id, auth_token).valid?
+      unless AuthenticationController.new(user_id, auth_token).authenticated?
         message['error'] = '403::Authentication required'
       end
       Emlogger.instance.log "subscription done"
