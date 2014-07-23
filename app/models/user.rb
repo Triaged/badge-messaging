@@ -5,6 +5,7 @@ class User
   field :user_id, type: String
   field :subscriptions, type: Integer
   field :authentication_token, type: String
+  field :last_seen_at, type: DateTime
 
   has_and_belongs_to_many :message_threads, autosave: true
 
@@ -22,12 +23,17 @@ class User
   	BadgeClient.new.valid_auth_token_for_user(self.id, auth_token)
   end
 
-  def incr_sub
+  def subscribed
     self.inc(subscriptions: 1)
   end
 
-  def decr_sub
+  def unsubscribed
     self.inc(subscriptions: -1) if (self.subscriptions > 0)
+    self.update_attribute(:last_seen_at, DateTime.now)
+  end
+
+  def pending_message_threads
+    self.messages_threads.where(:c_at.gte => self.last_seen_at)
   end
 
 end

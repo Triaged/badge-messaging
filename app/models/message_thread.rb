@@ -25,4 +25,12 @@ class MessageThread
 			messages: [message]
 		}
 	end
+
+	def with_messages_since datetime
+		{
+			_id: self.id.to_s,
+			user_ids: self.user_ids,
+			messages: [self.messages.where(:c_at.gte => datetime)]
+		}
+	end
 end
