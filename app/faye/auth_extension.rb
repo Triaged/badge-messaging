@@ -13,6 +13,7 @@ class AuthExtension
     
     # Publish Message Auth
     if message['channel'] =~ %r{^/threads/messages/}
+      Emlogger.instance.log message['channel']
       Emlogger.instance.log "publish"
       user_id = message['ext']['user_id']
       Emlogger.instance.log user_id
