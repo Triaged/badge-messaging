@@ -18,6 +18,7 @@ class NewMessageController
       body: @published_message.body,
       timestamp: @published_message.timestamp
     )
+    message.timestamp = message.timestamp.to_f
 	end
 
 	def deliver_message_to_recipients message
