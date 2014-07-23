@@ -39,7 +39,9 @@ class User
   end
 
   def self.fetch_and_create_remote user_id
+    Emlogger.instance.log "fetch or create"
     remote_user = BadgeClient.new.user(user_id)
+    Emlogger.instance.log remote_user.inspect
     User.create(user_id: remote_user)
   end
 

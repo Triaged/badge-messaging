@@ -6,7 +6,9 @@ class AuthenticationController
 	end
 
 	def authenticated?
+		Emlogger.instance.log "authenticated?"
 		user = User.find_or_fetch @user_id
+		Emlogger.instance.log user.inspect
 		return user.valid_auth_token? auth_token
 	end
 
