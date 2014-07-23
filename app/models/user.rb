@@ -44,7 +44,7 @@ class User
   end
 
   def self.find_or_fetch user_id
-    User.find(user_id) || fetch_and_create_remote user_id
+    User.find(user_id) || fetch_and_create_remote(user_id)
   end
 
 end
