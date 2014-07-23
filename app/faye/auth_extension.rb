@@ -14,11 +14,8 @@ class AuthExtension
     # Publish Message Auth
     if message['channel'] =~ %r{^/threads/messages/}
       Emlogger.instance.log message['channel']
-      Emlogger.instance.log "publish"
       user_id = message['ext']['user_id']
-      Emlogger.instance.log user_id
       auth_token = message['ext']['auth_token']
-      Emlogger.instance.log auth_token
       thread = message_thread(message['channel'])
       Emlogger.instance.log thread
       Emlogger.instance.log "about to authenticate"
@@ -45,6 +42,7 @@ class AuthExtension
   end
 
   def message_thread(channel)
+    Emlogger.instance.log "message thread"
     thread_id = /.*\/(.*)/.match(channel)[1]
     Emlogger.instance.log thread
     return MessageThread.find(thread_id)
