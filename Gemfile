@@ -37,6 +37,7 @@ gem 'lograge'
 gem 'bugsnag'
 gem 'httparty'
 gem 'figaro'
+gem "active_model_serializers"
 
 
 # Use ActiveModel has_secure_password

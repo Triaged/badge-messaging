@@ -29,7 +29,7 @@ class NewMessageService
   end
 
 	def deliver_message_to_recipient user, message
-		if user.present?
+		if true #user.present?
 			deliver_faye_message_to_recipient user, message
 		else
 			deliver_external_message_to_recipient user, message
