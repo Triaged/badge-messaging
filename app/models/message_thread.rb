@@ -11,11 +11,11 @@ class MessageThread
 	end
 
 	def with_last_message
-		MessageThreadSerializer.new(self, { messages: self.messages.last }).to_json
+		MessageThreadSerializer.new(self, { messages: [self.messages.last] }).to_json
 	end
 
 	def with_message message
-		MessageThreadSerializer.new(self, { messages: message }).to_json
+		MessageThreadSerializer.new(self, { messages: [message] }).to_json
 	end
 
 	def with_messages_since timestamp
