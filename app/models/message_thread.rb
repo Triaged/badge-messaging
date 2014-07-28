@@ -12,7 +12,7 @@ class MessageThread
 
 	def with_last_message
 		{
-			_id: self.id.to_s,
+			id: self.id.to_s,
 			user_ids: self.user_ids,
 			messages: [self.messages.last]
 		}
@@ -20,17 +20,17 @@ class MessageThread
 
 	def with_message message
 		{
-			_id: self.id.to_s,
+			id: self.id.to_s,
 			user_ids: self.user_ids,
 			messages: [message]
 		}
 	end
 
-	def with_messages_since datetime
+	def with_messages_since timestamp
 		{
-			_id: self.id.to_s,
+			id: self.id.to_s,
 			user_ids: self.user_ids,
-			messages: [self.messages.where(:c_at.gte => datetime)]
+			messages: [self.messages.where(:c_at.gte => timestamp)]
 		}
 	end
 end
