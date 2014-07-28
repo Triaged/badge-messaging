@@ -23,15 +23,6 @@ class User
   	BadgeClient.new.valid_auth_token_for_user(self.id, auth_token)
   end
 
-  def subscribed
-    self.inc(subscriptions: 1)
-  end
-
-  def unsubscribed
-    self.inc(subscriptions: -1) if (self.subscriptions > 0)
-    self.update_attribute(:last_seen_at, DateTime.now)
-  end
-
   def present?
     time_diff = Time.now.to_f - self.last_seen_at
     Emlogger.instance.log time_diff
@@ -39,7 +30,7 @@ class User
   end
 
   def pending_message_threads
-    self.messages_threads.where(:c_at.gte => self.last_seen_at)
+    self.messages_threads.where(:u_at.gte => self.last_seen_at)
   end
 
   def self.fetch_and_create_remote user_id

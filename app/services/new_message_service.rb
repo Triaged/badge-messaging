@@ -18,7 +18,9 @@ class NewMessageService
       body: @published_message.body,
       timestamp: @published_message.timestamp
     )
-    message.timestamp = message.timestamp.to_f
+    
+    # Hack to update @thread's updated_at
+    @thread.save
     return message
 	end
 
