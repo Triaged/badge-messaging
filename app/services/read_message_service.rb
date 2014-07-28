@@ -1,4 +1,4 @@
-class ReadMessageController
+class ReadMessageService
 
 	def initialize thread, data
 		@thread = thread

@@ -17,7 +17,7 @@ class ThreadChannelController < FayeRails::Controller
       thread = ThreadChannelController.message_thread(channel)
       response = Hashie::Mash.new(data)
       
-      NewMessageController.new(thread, response).persist_and_deliver_message!
+      NewMessageService.new(thread, response).persist_and_deliver_message!
     end
   end
 
@@ -38,7 +38,7 @@ class ThreadChannelController < FayeRails::Controller
       thread = ThreadChannelController.message_thread(channel)
       response = Hashie::Mash.new(data)
       
-      ReadMessageController.new(thread, response).read!
+      ReadMessageService.new(thread, response).read!
     end
   end
 

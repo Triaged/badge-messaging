@@ -5,7 +5,7 @@ class User
   field :user_id, type: String
   field :subscriptions, type: Integer
   field :authentication_token, type: String
-  field :last_seen_at, type: DateTime
+  field :last_seen_at, type: Float
 
   has_and_belongs_to_many :message_threads, autosave: true
 
@@ -30,6 +30,10 @@ class User
   def unsubscribed
     self.inc(subscriptions: -1) if (self.subscriptions > 0)
     self.update_attribute(:last_seen_at, DateTime.now)
+  end
+
+  def present?
+    self.last_seen_at || ((Time.now.to_f - self.last_seen_at > 0) && (Time.now.to_f - self.last_seen_at < 0.250))
   end
 
   def pending_message_threads

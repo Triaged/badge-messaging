@@ -1,4 +1,4 @@
-class AuthenticationController
+class AuthenticationService
 
 	def initialize user_id, auth_token
 		@user_id = user_id

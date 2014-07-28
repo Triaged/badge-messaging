@@ -1,4 +1,4 @@
-class NewMessageController
+class NewMessageService
 
 	def initialize thread, data
 		@thread = thread
@@ -27,7 +27,7 @@ class NewMessageController
   end
 
 	def deliver_message_to_recipient user, message
-		if user.subscriptions > 0
+		if user.present?
 			deliver_faye_message_to_recipient user, message
 		else
 			deliver_external_message_to_recipient user, message

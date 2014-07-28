@@ -5,7 +5,7 @@ class AuthExtension
       user_id = message['ext']['user_id']
       auth_token = message['ext']['auth_token']
       
-      unless AuthenticationController.new(user_id, auth_token).authenticated?
+      unless AuthenticationService.new(user_id, auth_token).authenticated?
         message['error'] = '403::Authentication required'
       end
       
@@ -20,7 +20,7 @@ class AuthExtension
       Emlogger.instance.log thread
       Emlogger.instance.log "about to authenticate"
       
-      unless AuthenticationController.new(user_id, auth_token).authenticated_and_can_publish? thread
+      unless AuthenticationService.new(user_id, auth_token).authenticated_and_can_publish? thread
         message['error'] = '403::Authentication required'
       end
       Emlogger.instance.log "publish done"

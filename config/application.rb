@@ -33,6 +33,7 @@ module BadgeMessaging
         add_extension(AuthExtension.new)
         map '/threads/**' => ThreadChannelController  
         map '/users/**' => UserChannelController  
+
         debug_messages
     end
 

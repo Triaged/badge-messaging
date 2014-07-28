@@ -1,4 +1,4 @@
-class PendingMessagesController
+class PendingMessagesService
 
 	def initialize user
 		@user = user
