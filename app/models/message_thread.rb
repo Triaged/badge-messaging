@@ -11,14 +11,14 @@ class MessageThread
 	end
 
 	def with_last_message
-		MessageThreadSeralizer.new(self, { messages: self.messages.last }).to_json
+		MessageThreadSerializer.new(self, { messages: self.messages.last }).to_json
 	end
 
 	def with_message message
-		MessageThreadSeralizer.new(self, { messages: message }).to_json
+		MessageThreadSerializer.new(self, { messages: message }).to_json
 	end
 
 	def with_messages_since timestamp
-		MessageThreadSeralizer.new(self, { messages: self.messages.where(:c_at.gte => timestamp) }).to_json
+		MessageThreadSerializer.new(self, { messages: self.messages.where(:c_at.gte => timestamp) }).to_json
 	end
 end
