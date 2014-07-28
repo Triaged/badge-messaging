@@ -33,7 +33,9 @@ class User
   end
 
   def present?
-    self.last_seen_at || ((Time.now.to_f - self.last_seen_at > 0) && (Time.now.to_f - self.last_seen_at < 0.250))
+    time_diff = Time.now.to_f - self.last_seen_at
+    Emlogger.instance.log time_diff
+    self.last_seen_at && (time_diff > 0) && (time_diff < 0.250)
   end
 
   def pending_message_threads
