@@ -1,5 +1,6 @@
 class AuthExtension
   def incoming(message, callback)
+    Emlogger.instance.log message.inspect
     # Subscription Auth
     if message['channel'] =~ %r{^/meta/subscribe}
       user_id = message['ext']['user_id']
