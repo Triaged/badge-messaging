@@ -19,8 +19,6 @@ class User
   	end
 	end
 
-  
-
   def check_auth_token_with_remote auth_token
   	BadgeClient.new.valid_auth_token_for_user(self.id, auth_token)
   end
