@@ -2,30 +2,30 @@ class AuthExtension
   def incoming(message, callback)
     Emlogger.instance.log message.inspect
     # Subscription Auth
-    if message['channel'] =~ %r{^/meta/subscribe}
-      user_id = message['ext']['user_id']
-      auth_token = message['ext']['auth_token']
+    # if message['channel'] =~ %r{^/meta/subscribe}
+    #   user_id = message['ext']['user_id']
+    #   auth_token = message['ext']['auth_token']
       
-      unless AuthenticationService.new(user_id, auth_token).authenticated?
-        message['error'] = '403::Authentication required'
-      end
+    #   unless AuthenticationService.new(user_id, auth_token).authenticated?
+    #     message['error'] = '403::Authentication required'
+    #   end
       
-    end
+    # end
     
-    # Publish Message Auth
-    if message['channel'] =~ %r{^/threads/messages/}
-      Emlogger.instance.log message['channel']
-      user_id = message['ext']['user_id']
-      auth_token = message['ext']['auth_token']
-      thread = message_thread(message['channel'])
-      Emlogger.instance.log thread
-      Emlogger.instance.log "about to authenticate"
+    # # Publish Message Auth
+    # if message['channel'] =~ %r{^/threads/messages/}
+    #   Emlogger.instance.log message['channel']
+    #   user_id = message['ext']['user_id']
+    #   auth_token = message['ext']['auth_token']
+    #   thread = message_thread(message['channel'])
+    #   Emlogger.instance.log thread
+    #   Emlogger.instance.log "about to authenticate"
       
-      unless AuthenticationService.new(user_id, auth_token).authenticated_and_can_publish? thread
-        message['error'] = '403::Authentication required'
-      end
-      Emlogger.instance.log "publish done"
-    end
+    #   unless AuthenticationService.new(user_id, auth_token).authenticated_and_can_publish? thread
+    #     message['error'] = '403::Authentication required'
+    #   end
+    #   Emlogger.instance.log "publish done"
+    # end
 
     callback.call(message)
   rescue
