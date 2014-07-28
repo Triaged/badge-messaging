@@ -8,6 +8,7 @@ class NewMessageService
 
 	def persist_and_deliver_message!
 		message = persist_message
+		Emlogger.instance.log "Saved #{message.inspect}"
 		deliver_message_to_recipients message
 		return message
 	end
@@ -21,6 +22,7 @@ class NewMessageService
     
     # Hack to update @thread's updated_at
     @thread.save
+
     return message
 	end
 
@@ -49,6 +51,8 @@ class NewMessageService
 	end
 
 	def faye_message_format message
+		Emlogger.instance.log "faye message format"
+		Emlogger.instance.log @thread.with_message(message)
 		{message_thread: @thread.with_message(message), guid: @guid}
 	end
 
