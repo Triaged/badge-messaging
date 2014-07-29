@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :message_threads
       resource :user do
-        get 'history', as: :member
+        get 'messages', as: :member
       end
     end
   end
