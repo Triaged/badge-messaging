@@ -3,8 +3,11 @@ class Api::V1::MessagesController < ApplicationController
 	protect_from_forgery with: :null_session
 
 	def create
-		@message = MessageThread.in(user_ids: ["6"]).first.messages.new(message_params)
-		respond_with @message
+		thread = MessageThread.in(user_ids: ["6"]).first
+    response = Hashie::Mash.new(message_params)
+    NewMessageService.new(thread, response).persist_and_deliver_message!
+
+		render :json => { "message" => "ok" }, :status => 200
 	end
 
 	def message_params
