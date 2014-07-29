@@ -25,8 +25,8 @@ class UserChannelController < FayeRails::Controller
       Emlogger.instance.log "User #{client_id} unsubscribed from #{channel}."
     end
     monitor :publish do
-      HeartbeatService.received_heartbeat(UserChannelController.user_id(channel))
       Emlogger.instance.log "Client #{client_id} published #{data.inspect} to #{channel}."
+      #HeartbeatService.received_heartbeat(UserChannelController.user_id(channel))
     end
   end
 
