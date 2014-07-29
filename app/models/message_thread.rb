@@ -3,6 +3,7 @@ class MessageThread
   include Mongoid::Timestamps::Short
 
   field :title, type: String
+  field :timestamp, type: Float
 
   has_and_belongs_to_many :users, autosave: true
 	embeds_many :messages, cascade_callbacks: true
