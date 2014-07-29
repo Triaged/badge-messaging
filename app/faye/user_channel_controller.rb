@@ -26,7 +26,7 @@ class UserChannelController < FayeRails::Controller
     end
     monitor :publish do
       Emlogger.instance.log "Client #{client_id} published #{data.inspect} to #{channel}."
-      #HeartbeatService.received_heartbeat(UserChannelController.user_id(channel))
+      HeartbeatService.received_heartbeat(UserChannelController.user_id(channel))
     end
   end
 
