@@ -21,7 +21,7 @@ class NewMessageService
     )
     
     # Hack to update @thread's updated_at
-    @thread.update_attribute(timestamp: message.timestamp)
+    @thread.save
 
     return message
 	end

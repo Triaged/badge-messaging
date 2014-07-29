@@ -2,8 +2,6 @@ class MessageThread
   include Mongoid::Document
   include Mongoid::Timestamps::Short
 
-  field :timestamp, type: Float
-
   has_and_belongs_to_many :users, autosave: true
 	embeds_many :messages, cascade_callbacks: true
 	accepts_nested_attributes_for :messages
