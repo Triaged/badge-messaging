@@ -46,7 +46,7 @@ class NewMessageService
 	def deliver_external_message_to_recipient user, message
 		unless user.id == message.author_id
 			Emlogger.instance.log "Sending External Message to user: #{user.id}"
-			BadgeClient.new.deliver_message user.id, message
+			BadgeClient.new.deliver_message user.id, @thread, message
 		end
 	end
 

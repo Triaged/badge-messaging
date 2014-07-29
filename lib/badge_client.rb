@@ -19,8 +19,8 @@ class BadgeClient
 		return Hashie::Mash.new(response.parsed_response)
 	end
 
-	def deliver_message user_id, message
-		params = @options.merge(query: {message: message.attributes})
+	def deliver_message user_id, thread, message
+		params = @options.merge(query: {message: message.attributes, thread_id: thread.id})
 		response = self.class.post("/users/#{user_id}/deliver_message", params)
 		raise HTTParty::Error.new unless response.response.is_a?(Net::HTTPSuccess) 
 		return true
