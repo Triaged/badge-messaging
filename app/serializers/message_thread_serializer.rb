@@ -4,6 +4,7 @@ class MessageThreadSerializer < ActiveModel::Serializer
   
 
   def messages
+  	Rails.logger.info @options.inspect
   	return @options[:messages] if @options[:messages]
   	return object.messages.where(:c_at.gt => @options[:timestamp]) if @options[:timestamp]
   	return object.messages
