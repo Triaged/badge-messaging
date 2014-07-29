@@ -22,6 +22,6 @@ class MessageThread
 	end
 
 	def with_messages_since timestamp
-		JSON.parse(MessageThreadSerializer.new(self, { messages: self.messages.where(:c_at.gte => timestamp).order_by(:timestamp) }).to_json)
+		JSON.parse(MessageThreadSerializer.new(self, { messages: self.messages.where(:c_at.gt => timestamp).order_by(:timestamp) }).to_json)
 	end
 end
