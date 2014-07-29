@@ -29,8 +29,12 @@ class User
     self.last_seen_at && (time_diff > 0) && (time_diff < 0.250)
   end
 
-  def pending_message_threads
+  def pending_message_threads 
     self.messages_threads.where(:u_at.gte => self.last_seen_at)
+  end
+
+  def pending_message_threads_since timestamp
+    self.messages_threads.where(:u_at.gte => timestamp)
   end
 
   def self.fetch_and_create_remote user_id
