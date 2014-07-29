@@ -4,7 +4,7 @@ class Api::V1::MessagesController < ApplicationController
 
 	def create
 		thread = MessageThread.in(user_ids: ["6"]).first
-    response = Hashie::Mash.new({message: message_params, guid: "2342342523")
+    response = Hashie::Mash.new({message: message_params, guid: "2342342523"})
     NewMessageService.new(thread, response).persist_and_deliver_message!
 
 		render :json => { "message" => "ok" }, :status => 200
