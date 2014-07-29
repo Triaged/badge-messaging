@@ -29,7 +29,7 @@ class User
     (time_diff > 0) && (time_diff < 0.250)
   end
 
-  def pending_message_threads_since timestamp
+  def message_threads_since timestamp
     self.message_threads.where(:timestamp.gt => timestamp.to_f)
   end
 
