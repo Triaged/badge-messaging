@@ -7,7 +7,7 @@ class Api::V1::MessagesController < ApplicationController
 		respond_with @message
 	end
 
-	def message_thread_params
+	def message_params
 		params[:message].permit(:author_id, :body, :timestamp)
 	end
 
