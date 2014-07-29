@@ -30,11 +30,11 @@ class User
   end
 
   def pending_message_threads 
-    self.message_threads.where(:u_at.gte => self.last_seen_at)
+    self.message_threads.where(:timestamp.gte => self.last_seen_at)
   end
 
   def pending_message_threads_since timestamp
-    self.message_threads.where(:u_at.gte => timestamp)
+    self.message_threads.where(:timestamp.gte => timestamp)
   end
 
   def self.fetch_and_create_remote user_id
