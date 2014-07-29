@@ -34,7 +34,7 @@ class User
   end
 
   def pending_message_threads_since timestamp
-    self.message_threads.where(:u_at.gte => timestamp)
+    self.message_threads.where(:u_at.gte => timestamp.to_f)
   end
 
   def self.fetch_and_create_remote user_id
