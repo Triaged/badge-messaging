@@ -2,6 +2,8 @@ class MessageThread
   include Mongoid::Document
   include Mongoid::Timestamps::Short
 
+  field :title, type: String
+
   has_and_belongs_to_many :users, autosave: true
 	embeds_many :messages, cascade_callbacks: true
 	accepts_nested_attributes_for :messages
@@ -19,6 +21,6 @@ class MessageThread
 	end
 
 	def with_messages_since timestamp
-		JSON.parse(MessageThreadSerializer.new(self, { messages: self.messages.where(:c_at.gte => timestamp) }).to_json)
+		JSON.parse(MessageThreadSerializer.new(self, { messages: self.messages.where(:c_at.gte => timestamp).order_by(:timestamp) }).to_json)
 	end
 end
