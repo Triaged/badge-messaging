@@ -13,7 +13,9 @@ class Api::V1::MessageThreadsController < ApiController
 			render :json => { :errors => ['Invalid MessageThread, current user must be part of thread'] }, :status => 401 && return
 		end
 		
-		@message_thread = MessageThread.find_or_create_by(user_ids: recipients)
+		@message_thread = MessageThread.in(user_ids: recipients).first
+		@message_thread = MessageThread.create(user_ids: recipients) unless @message_thread
+		
 		respond_with @message_thread.to_json, location: api_v1_message_thread_path(@message_thread)
 	end
 
