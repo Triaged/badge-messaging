@@ -5,7 +5,7 @@ class MessageThreadSerializer < ActiveModel::Serializer
 
   def messages
   	return @options[:messages] if @options[:messages]
-  	return self.messages.where(:c_at.gte => @options[:timestamp]) if @options[:timestamp]
+  	return self.messages.where(:c_at.gt => @options[:timestamp]) if @options[:timestamp]
   	return object.messages
   end
 end
