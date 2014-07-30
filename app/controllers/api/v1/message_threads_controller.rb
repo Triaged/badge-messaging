@@ -7,8 +7,6 @@ class Api::V1::MessageThreadsController < ApiController
 	end
 
 	def create
-		Emlogger.instance.log request.headers.inspect
-		Emlogger.instance.log request.raw_post
 		recipients = message_thread_params[:user_ids]
 		
 		unless recipients.include? current_user.id 
@@ -18,7 +16,7 @@ class Api::V1::MessageThreadsController < ApiController
 		@message_thread = MessageThread.all(user_ids: recipients).first
 		@message_thread = MessageThread.create(user_ids: recipients) unless @message_thread
 
-		respond_with @message_thread, location: api_v1_message_thread_path(@message_thread)
+		respond_with @message_thread
 	end
 
 private
