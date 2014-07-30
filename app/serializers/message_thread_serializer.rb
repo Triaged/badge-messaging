@@ -1,5 +1,5 @@
 class MessageThreadSerializer < ActiveModel::Serializer
-  attributes :id, :user_ids, :u_at
+  attributes :id, :user_ids, :u_at, :timestamp
 
   has_many :messages
 

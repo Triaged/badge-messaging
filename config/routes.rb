@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :messages
-      resources :message_threads
+      resources :message_threads, defaults: { format: 'json' }
       resource :user do
         get 'messages', as: :member
       end
