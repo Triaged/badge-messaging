@@ -49,4 +49,8 @@ class User
     User.find(user_id) || fetch_and_create_remote(user_id)
   end
 
+  def self.user_present? user_id
+    User.where(id: user_id, :last_seen_at.gte => Time.now.to_f)
+  end
+
 end
