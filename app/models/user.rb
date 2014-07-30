@@ -50,7 +50,7 @@ class User
   end
 
   def self.user_present? user_id
-    User.where(id: user_id, :last_seen_at.gte => Time.now.to_f).count > 0
+    User.where(id: user_id, :last_seen_at.gte => (Time.now.to_f - .250)).count > 0
   end
 
 end
