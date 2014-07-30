@@ -1,5 +1,7 @@
 class MessageThreadSerializer < ActiveModel::Serializer
-  attributes :id, :user_ids, :u_at, :messages
+  attributes :id, :user_ids, :u_at
+
+  has_many :messages
 
   def messages
   	Rails.logger.info @options.inspect
