@@ -7,6 +7,7 @@ class Api::V1::MessageThreadsController < ApiController
 	end
 
 	def create
+		Emlogger.instance.log request.env
 		recipients = message_thread_params[:user_ids]
 		
 		unless recipients.include? current_user.id 
