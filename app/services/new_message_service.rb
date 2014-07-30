@@ -33,11 +33,15 @@ class NewMessageService
   end
 
 	def deliver_message_to_recipient user, message
-		if User.user_present?(user_id)
+		if present?(user.id)
 			deliver_faye_message_to_recipient user, message
 		else
 			deliver_external_message_to_recipient user, message
 		end
+	end
+
+	def present? user_id
+		User.where(id: user_id, :last_seen_at.gte => (Time.now.to_f - 0.250)).count > 0
 	end
 
 	def deliver_faye_message_to_recipient user, message
