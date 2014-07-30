@@ -7,7 +7,7 @@ class Api::V1::MessageThreadsController < ApiController
 	end
 
 	def create
-		Emlogger.instance.log request.headers
+		Emlogger.instance.log request.headers.inspect
 		Emlogger.instance.log request.raw_post
 		recipients = message_thread_params[:user_ids]
 		
