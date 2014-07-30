@@ -14,14 +14,16 @@ class NewMessageService
 	end
 
 	def persist_message
+		timestamp = Time.now.to_f
+
 		message = @thread.messages.create(
       author_id: @published_message.author_id,
       body: @published_message.body,
-      timestamp: @published_message.timestamp
+      timestamp: timestamp
     )
     
     # Hack to update @thread's updated_at
-    @thread.update_attribute(:timestamp, message.timestamp)
+    @thread.update_attribute(:timestamp, timestamp)
     
     return message
 	end
