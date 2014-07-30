@@ -26,8 +26,11 @@ class User
   def present?
     return false unless self.last_seen_at
     time_diff = Time.now.to_f - self.last_seen_at
+    puts Time.now.to_f
+    puts "------"
+    puts self.last_seen_at
+    puts "------"
     puts time_diff
-    Emlogger.instance.log time_diff
     (time_diff > 0) && (time_diff < 0.250)
   end
 
