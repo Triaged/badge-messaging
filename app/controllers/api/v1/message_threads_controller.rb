@@ -24,7 +24,7 @@ class Api::V1::MessageThreadsController < ApiController
 		@message_thread = MessageThread.all(user_ids: recipients).where(:user_ids.with_size => recipients.length).first
 		@message_thread = MessageThread.create(user_ids: recipients) unless @message_thread
 
-		EMlogger.instance.log @message_thread.inspect
+		Emlogger.instance.log @message_thread.inspect
 
 		respond_with @message_thread, location: api_v1_message_thread_path(@message_thread)
 	end
