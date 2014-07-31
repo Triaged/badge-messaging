@@ -7,17 +7,17 @@ class Api::V1::MessageThreadsController < ApiController
 	end
 
 	def create
-		Emlogger.instance.log "*** BEGIN RAW REQUEST HEADERS ***"
-		self.request.env.select {|k,v| k.match("^HTTP.*")}.each do |header|
-  		Emlogger.instance.log "HEADER KEY: #{header[0]}"
-  		Emlogger.instance.log "HEADER VAL: #{header[1]}"
-		end
-		Emlogger.instance.log "*** END RAW REQUEST HEADERS ***"
+		# Emlogger.instance.log "*** BEGIN RAW REQUEST HEADERS ***"
+		# self.request.env.select {|k,v| k.match("^HTTP.*")}.each do |header|
+  # 		Emlogger.instance.log "HEADER KEY: #{header[0]}"
+  # 		Emlogger.instance.log "HEADER VAL: #{header[1]}"
+		# end
+		# Emlogger.instance.log "*** END RAW REQUEST HEADERS ***"
 
 
 		recipients = message_thread_params[:user_ids]
-		Emlogger.instance.log recipients
-		Emlogger.instance.log current_user.id
+		#Emlogger.instance.log recipients
+		#Emlogger.instance.log current_user.id
 		
 		unless recipients.include? current_user.id 
 			Emlogger.instance.log "no current user"
