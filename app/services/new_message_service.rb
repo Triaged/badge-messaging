@@ -41,7 +41,7 @@ class NewMessageService
 	end
 
 	def present? user_id
-		User.where(id: user_id, :last_seen_at.gte => (Time.now.to_f - 0.250)).count > 0
+		User.where(id: user_id, :last_seen_at.gte => (Time.now.to_f - 0.350)).count > 0
 	end
 
 	def deliver_faye_message_to_recipient user_id, message
