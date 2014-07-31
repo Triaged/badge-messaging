@@ -41,6 +41,13 @@ class NewMessageService
 	end
 
 	def present? user_id
+		time_now = Time.now.to_f
+		last_seen = User.find(user_id).last_seen_at
+		Emlogger.instance.log time_now
+		Emlogger.instance.log "-------"
+		Emlogger.instance.log last_seen
+		Emlogger.instance.log "-------"
+		Emlogger.instance.log (time_now - last_seen)
 		User.where(id: user_id, :last_seen_at.gte => (Time.now.to_f - 0.350)).count > 0
 	end
 
