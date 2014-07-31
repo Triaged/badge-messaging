@@ -35,7 +35,7 @@ class User
   # end
 
   def set_presence timestamp
-    $redis.set("p-#{self.id}", (timestamp + 0.350))
+    $redis.set("p-#{self.id}", (timestamp + 0.500))
   end
 
   def present?
@@ -47,7 +47,7 @@ class User
     puts "-----"
     puts timestamp
     puts "-----"
-    return false if timestamp
+    return false unless timestamp
     time_diff = time_now - timestamp.to_f
     return time_diff < 0
   end

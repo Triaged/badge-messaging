@@ -28,7 +28,6 @@ class NewMessageService
 	end
 
 	def deliver_message_to_recipients message
-		Emlogger.instance.log "delivering"
 		@thread.user_ids.each { |user_id| deliver_message_to_recipient user_id, message } 
   end
 
