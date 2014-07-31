@@ -57,8 +57,6 @@ class NewMessageService
 	end
 
 	def faye_message_format message
-		Emlogger.instance.log "faye message format"
-		Emlogger.instance.log @thread.with_message(message)
 		{message_thread: @thread.with_message(message), guid: @guid}
 	end
 

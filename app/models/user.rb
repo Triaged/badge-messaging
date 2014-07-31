@@ -47,7 +47,7 @@ class User
     puts "-----"
     puts timestamp
     puts "-----"
-    return false unless timestamp
+    return false if timestamp
     time_diff = time_now - timestamp.to_f
     return time_diff < 0
   end
