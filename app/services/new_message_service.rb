@@ -42,12 +42,13 @@ class NewMessageService
 	def present? user_id
 		time_now = Time.now.to_f
 		last_seen = User.find(user_id).last_seen_at
+		time_diff = time_now - last_seen
 		Emlogger.instance.log time_now
 		Emlogger.instance.log "-------"
 		Emlogger.instance.log last_seen
 		Emlogger.instance.log "-------"
 		Emlogger.instance.log (time_now - last_seen)
-		User.where(id: user_id, :last_seen_at.gte => (Time.now.to_f - 1.0)).count > 0
+		(time_diff > 0) && (time_diff < 1.0)
 	end
 
 	def deliver_faye_message_to_recipient user_id, message
