@@ -16,13 +16,17 @@ class Api::V1::MessageThreadsController < ApiController
 
 
 		recipients = message_thread_params[:user_ids]
+		Emlogger.instance.log recipients
 		
 		unless recipients.include? current_user.id 
+			Emlogger.instance.log "no current user"
 			render :json => { :errors => ['Invalid MessageThread, current user must be part of thread'] }, :status => 401 && return
 		end
 		
 		@message_thread = MessageThread.all(user_ids: recipients).where(:user_ids.with_size => recipients.length).first
+		Emlogger.instance.log @message_thread.inspect
 		@message_thread = MessageThread.create(user_ids: recipients) unless @message_thread
+		Emlogger.instance.log "2"
 
 		Emlogger.instance.log @message_thread.inspect
 
