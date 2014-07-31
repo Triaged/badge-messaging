@@ -7,12 +7,12 @@ class Api::V1::MessageThreadsController < ApiController
 	end
 
 	def create
-		puts "*** BEGIN RAW REQUEST HEADERS ***"
+		Emlogger.instance.log "*** BEGIN RAW REQUEST HEADERS ***"
 		self.request.env.each do |header|
-  		puts "HEADER KEY: #{header[0]}"
-  		puts "HEADER VAL: #{header[1]}"
+  		Emlogger.instance.log "HEADER KEY: #{header[0]}"
+  		Emlogger.instance.log "HEADER VAL: #{header[1]}"
 		end
-		puts "*** END RAW REQUEST HEADERS ***"
+		Emlogger.instance.log "*** END RAW REQUEST HEADERS ***"
 
 
 		recipients = message_thread_params[:user_ids]
