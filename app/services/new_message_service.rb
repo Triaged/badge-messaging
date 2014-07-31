@@ -28,11 +28,13 @@ class NewMessageService
 	end
 
 	def deliver_message_to_recipients message
+		Emlogger.instance.log "delivering"
 		@thread.user_ids.each { |user_id| deliver_message_to_recipient user_id, message } 
   end
 
 	def deliver_message_to_recipient user_id, message
-		user = User.find(user_id)
+		user = User.where(id: user_id).first
+		Emlogger.instance.log "delivering to user #{user}"
 		if user && user.present?
 			Emlogger.instance.log "user #{user.id} is present"
 			deliver_faye_message_to_recipient user, message
