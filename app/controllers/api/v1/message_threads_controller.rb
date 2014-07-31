@@ -7,6 +7,14 @@ class Api::V1::MessageThreadsController < ApiController
 	end
 
 	def create
+		logger.warn "*** BEGIN RAW REQUEST HEADERS ***"
+		self.request.env.each do |header|
+  		logger.warn "HEADER KEY: #{header[0]}"
+  		logger.warn "HEADER VAL: #{header[1]}"
+		end
+		logger.warn "*** END RAW REQUEST HEADERS ***"
+
+
 		recipients = message_thread_params[:user_ids]
 		
 		unless recipients.include? current_user.id 
