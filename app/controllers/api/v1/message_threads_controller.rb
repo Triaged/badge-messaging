@@ -8,7 +8,7 @@ class Api::V1::MessageThreadsController < ApiController
 
 	def create
 		Emlogger.instance.log "*** BEGIN RAW REQUEST HEADERS ***"
-		self.request.env.each do |header|
+		self.request.env.select {|k,v| k.match("^HTTP.*")}.each do |header|
   		Emlogger.instance.log "HEADER KEY: #{header[0]}"
   		Emlogger.instance.log "HEADER VAL: #{header[1]}"
 		end
