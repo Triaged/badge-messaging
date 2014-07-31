@@ -13,8 +13,6 @@ class ApiController < ApplicationController
   def authenticate_from_token!
   	user_id = request.headers["HTTP_USER_ID"].presence
     auth_token = request.headers["HTTP_AUTHORIZATION"].presence
-    Emlogger.instance.log user_id
-    Emlogger.instance.log auth_token
     unless auth_token && user_id && (User.find(user_id).valid_auth_token?(auth_token))
       Emlogger.instance.log "unauth"
       render :json => { :errors => ['You must be signed in to access this page'] }, :status => 401
