@@ -35,7 +35,7 @@ class User
   # end
 
   def set_presence timestamp
-    REDIS.set("p-#{self.id}", (timestamp + .350))
+    REDIS.set("p-#{self.id}", (timestamp + 0.350))
   end
 
   def present?
