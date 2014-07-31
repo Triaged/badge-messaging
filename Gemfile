@@ -38,6 +38,7 @@ gem 'bugsnag'
 gem 'httparty'
 gem 'figaro'
 gem "active_model_serializers"
+gem 'redis'
 
 
 # Use ActiveModel has_secure_password

@@ -1,0 +1,1 @@
+REDIS = Redis.new(ENV["REDISCLOUD_URL"])

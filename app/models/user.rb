@@ -23,15 +23,31 @@ class User
   	BadgeClient.new.valid_auth_token_for_user(self.id, auth_token)
   end
 
+  # def present?
+  #   return false unless self.last_seen_at
+  #   time_diff = Time.now.to_f - self.last_seen_at
+  #   puts Time.now.to_f
+  #   puts "------"
+  #   puts self.last_seen_at
+  #   puts "------"
+  #   puts time_diff
+  #   (time_diff > 0) && (time_diff < 0.250)
+  # end
+
+  def set_presence timestamp
+    REDIS.set("p-#{self.id}", (timestamp + .350))
+  end
+
   def present?
-    return false unless self.last_seen_at
-    time_diff = Time.now.to_f - self.last_seen_at
-    puts Time.now.to_f
-    puts "------"
-    puts self.last_seen_at
-    puts "------"
-    puts time_diff
-    (time_diff > 0) && (time_diff < 0.250)
+    time_now = Time.now.to_f
+    timestamp = REDIS.get("p-#{self.id}")
+    puts time_now
+    puts "-----"
+    puts timestamp
+    puts "-----"
+    return false unless timestamp
+    time_diff = time_now - timestamp
+    return time_diff < 0
   end
 
   def message_threads_since timestamp
@@ -50,7 +66,7 @@ class User
   end
 
   def self.user_present? user_id
-    User.where(id: user_id, :last_seen_at.gte => (Time.now.to_f - 0.250)).count > 0
+
   end
 
 end

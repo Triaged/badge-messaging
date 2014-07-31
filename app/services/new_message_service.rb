@@ -29,39 +29,30 @@ class NewMessageService
 	end
 
 	def deliver_message_to_recipients message
-		@thread.user_ids.each { |user_id| deliver_message_to_recipient user_id, message } 
+		@thread.users.each { |user| deliver_message_to_recipient user, message } 
   end
 
-	def deliver_message_to_recipient user_id, message
-		if present?(user_id)
-			deliver_faye_message_to_recipient user_id, message
+	def deliver_message_to_recipient user, message
+		if present?(user.id)
+			deliver_faye_message_to_recipient user, message
+		else
+			deliver_external_message_to_recipient user, message
 		end
-		deliver_external_message_to_recipient user_id, message
 	end
 
 	def present? user_id
-		time_now = Time.now.to_f
-		last_seen = User.find(user_id).last_seen_at
-		time_diff = time_now - last_seen
-		Emlogger.instance.log time_now
-		Emlogger.instance.log "-------"
-		Emlogger.instance.log last_seen
-		Emlogger.instance.log "-------"
-		Emlogger.instance.log (time_now - last_seen)
-		(time_diff > 0) && (time_diff < 1.0)
+		User.where(id: user_id, :last_seen_at.gte => (Time.now.to_f - 0.250)).count > 0
 	end
 
-	def deliver_faye_message_to_recipient user_id, message
-		Emlogger.instance.log "Sending Faye Message: #{faye_message_format(message)} to user: #{user_id}"
-		ThreadChannelController.publish("/users/messages/#{user_id}", faye_message_format(message))
+	def deliver_faye_message_to_recipient user, message
+		Emlogger.instance.log "Sending Faye Message: #{faye_message_format(message)} to user: #{user.id}"
+		ThreadChannelController.publish("/users/messages/#{user.id}", faye_message_format(message))
 	end
 
-	def deliver_external_message_to_recipient user_id, message
-		unless user_id == message.author_id
-			Emlogger.instance.log "Sending External Message to user: #{user_id}"
-			BadgeClient.new.deliver_message user_id, @thread, message
-		else
-			Emlogger.instance.log "Current User #{user_id} is Offline"
+	def deliver_external_message_to_recipient user, message
+		unless user.id == message.author_id
+			Emlogger.instance.log "Sending External Message to user: #{user.id}"
+			BadgeClient.new.deliver_message user.id, @thread, message
 		end
 	end
 
