@@ -8,7 +8,6 @@ class NewMessageService
 
 	def persist_and_deliver_message!
 		message = persist_message
-		Emlogger.instance.log "Saved #{message.inspect}"
 		deliver_message_to_recipients message
 		return message
 	end
@@ -34,6 +33,7 @@ class NewMessageService
 
 	def deliver_message_to_recipient user, message
 		if user.present?
+			Emlogger.instance.log "user #{user.id} is present"
 			deliver_faye_message_to_recipient user, message
 		else
 			deliver_external_message_to_recipient user, message
