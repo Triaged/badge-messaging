@@ -15,6 +15,7 @@ class Api::V1::MessageThreadsController < ApiController
 		# Emlogger.instance.log "*** END RAW REQUEST HEADERS ***"
 
 		recipients = message_thread_params[:user_ids]
+		recipients = recipients.collect{ |i| i.to_s}
 
 		unless recipients.include?(current_user.id)
 			render(:json => { :errors => ['Invalid MessageThread, current user must be part of thread'] }, :status => 401) && return
