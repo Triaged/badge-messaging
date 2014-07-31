@@ -39,6 +39,8 @@ class User
   end
 
   def present?
+    puts "Present --------------"
+    puts self.id
     time_now = Time.now.to_f
     timestamp = $redis.get("p-#{self.id}")
     puts time_now
