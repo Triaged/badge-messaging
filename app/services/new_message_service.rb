@@ -28,15 +28,16 @@ class NewMessageService
 	end
 
 	def deliver_message_to_recipients message
-		@thread.users.each { |user| deliver_message_to_recipient user, message } 
+		@thread.user_ids.each { |user_id| deliver_message_to_recipient user_id, message } 
   end
 
-	def deliver_message_to_recipient user, message
-		if user.present?
+	def deliver_message_to_recipient user_id, message
+		user = User.find(user_id)
+		if user && user.present?
 			Emlogger.instance.log "user #{user.id} is present"
 			deliver_faye_message_to_recipient user, message
 		else
-			deliver_external_message_to_recipient user, message
+			deliver_external_message_to_recipient user_id, message
 		end
 	end
 
@@ -49,10 +50,10 @@ class NewMessageService
 		ThreadChannelController.publish("/users/messages/#{user.id}", faye_message_format(message))
 	end
 
-	def deliver_external_message_to_recipient user, message
-		unless user.id == message.author_id
-			Emlogger.instance.log "Sending External Message to user: #{user.id}"
-			BadgeClient.new.deliver_message user.id, @thread, message
+	def deliver_external_message_to_recipient user_id, message
+		unless user_id == message.author_id
+			Emlogger.instance.log "Sending External Message to user: #{user_id}"
+			BadgeClient.new.deliver_message user_id, @thread, message
 		end
 	end
 
