@@ -17,6 +17,7 @@ class Api::V1::MessageThreadsController < ApiController
 
 		recipients = message_thread_params[:user_ids]
 		Emlogger.instance.log recipients
+		Emlogger.instance.log current_user.id
 		
 		unless recipients.include? current_user.id 
 			Emlogger.instance.log "no current user"
