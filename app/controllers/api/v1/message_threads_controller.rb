@@ -20,7 +20,7 @@ class Api::V1::MessageThreadsController < ApiController
 		
 		unless recipients.include? current_user.id 
 			Emlogger.instance.log "no current user"
-			render :json => { :errors => ['Invalid MessageThread, current user must be part of thread'] }, :status => 401 && return
+			render(:json => { :errors => ['Invalid MessageThread, current user must be part of thread'] }, :status => 401) && return
 		end
 		
 		@message_thread = MessageThread.all(user_ids: recipients).where(:user_ids.with_size => recipients.length).first
