@@ -35,9 +35,8 @@ class NewMessageService
 	def deliver_message_to_recipient user_id, message
 		if present?(user_id)
 			deliver_faye_message_to_recipient user_id, message
-		else
-			deliver_external_message_to_recipient user_id, message
 		end
+		deliver_external_message_to_recipient user_id, message
 	end
 
 	def present? user_id
@@ -48,7 +47,7 @@ class NewMessageService
 		Emlogger.instance.log last_seen
 		Emlogger.instance.log "-------"
 		Emlogger.instance.log (time_now - last_seen)
-		User.where(id: user_id, :last_seen_at.gte => (Time.now.to_f - 0.350)).count > 0
+		User.where(id: user_id, :last_seen_at.gte => (Time.now.to_f - 1.0)).count > 0
 	end
 
 	def deliver_faye_message_to_recipient user_id, message
