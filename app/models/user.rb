@@ -35,12 +35,12 @@ class User
   # end
 
   def set_presence timestamp
-    REDIS.set("p-#{self.id}", (timestamp + 0.350))
+    $redis.set("p-#{self.id}", (timestamp + 0.350))
   end
 
   def present?
     time_now = Time.now.to_f
-    timestamp = REDIS.get("p-#{self.id}")
+    timestamp = $redis.get("p-#{self.id}")
     puts time_now
     puts "-----"
     puts timestamp
