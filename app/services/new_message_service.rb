@@ -16,11 +16,10 @@ class NewMessageService
 		timestamp = Time.now.to_f
 
 		unless @thread.messages.where(guid: @guid).count > 0
-
 			message = @thread.messages.create(
 	      author_id: @published_message.author_id,
 	      body: @published_message.body,
-	      timestamp: timestamp
+	      timestamp: timestamp,
 	      guid: @guid
 	    )
 		end
