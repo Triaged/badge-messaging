@@ -33,12 +33,15 @@ class NewMessageService
 
 	def deliver_message_to_recipient user_id, message
 		user = User.where(id: user_id).first
-		if user && user.present?
-			Emlogger.instance.log "user #{user.id} is present"
-			deliver_faye_message_to_recipient user, message
-		else
-			deliver_external_message_to_recipient user_id, message
-		end
+		deliver_faye_message_to_recipient user, message
+		deliver_external_message_to_recipient user_id, message
+
+		# if user && user.present?
+		# 	Emlogger.instance.log "user #{user.id} is present"
+		# 	deliver_faye_message_to_recipient user, message
+		# else
+		# 	deliver_external_message_to_recipient user_id, message
+		# end
 	end
 
 	def present? user_id
