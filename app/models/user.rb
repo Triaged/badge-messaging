@@ -23,30 +23,13 @@ class User
   	BadgeClient.new.valid_auth_token_for_user(self.id, auth_token)
   end
 
-  # def present?
-  #   return false unless self.last_seen_at
-  #   time_diff = Time.now.to_f - self.last_seen_at
-  #   puts Time.now.to_f
-  #   puts "------"
-  #   puts self.last_seen_at
-  #   puts "------"
-  #   puts time_diff
-  #   (time_diff > 0) && (time_diff < 0.250)
-  # end
-
   def set_presence timestamp
     $redis.set("p-#{self.id}", (timestamp + 0.500))
   end
 
   def present?
-    puts "Present --------------"
-    puts self.id
     time_now = Time.now.to_f
     timestamp = $redis.get("p-#{self.id}")
-    puts time_now
-    puts "-----"
-    puts timestamp
-    puts "-----"
     return false unless timestamp
     time_diff = time_now - timestamp.to_f
     return time_diff < 0
