@@ -15,12 +15,12 @@ class NewMessageService
 	def persist_message
 		timestamp = Time.now.to_f
 
-		unless @thread.messages.where(guid: @guid).count > 0
+		unless @thread.messages.where(guid: published_message.guid).count > 0
 			message = @thread.messages.create(
 	      author_id: @published_message.author_id,
 	      body: @published_message.body,
 	      timestamp: timestamp,
-	      guid: @guid
+	      guid: published_message.guid
 	    )
 		end
 	    
