@@ -52,7 +52,7 @@ class NewMessageService
 	end
 
 	def deliver_faye_message_to_recipient user, message
-		Emlogger.instance.log "Sending Faye Message: #{faye_message_format(message)} to user: #{user.id}"
+		Emlogger.instance.log "Sending Faye Message to user: #{user.id}"
 		ThreadChannelController.publish("/users/messages/#{user.id}", faye_message_format(message))
 	end
 
