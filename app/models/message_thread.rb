@@ -9,6 +9,8 @@ class MessageThread
 	embeds_many :messages, cascade_callbacks: true
 	accepts_nested_attributes_for :messages
 
+	index "messages.guid" => 1
+
 	def user_can_publish user 
 		self.user_ids.include? user.id
 	end

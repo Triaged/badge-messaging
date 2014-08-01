@@ -8,5 +8,6 @@ class Message
   field :body, type: String
   field :timestamp, type: Float
   field :read_by, type: Array  
+  field :guid, type: String
   
 end
